@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ShapeAppearanceOverlay.Chaat.TextInputLayout.Rounded" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+    <style name="ShapeAppearanceOverlay.Chaat.Button.Circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+    <style name="AppTheme.GenderChip" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">sans-serif-black</item>
+    </style>
+</resources>
