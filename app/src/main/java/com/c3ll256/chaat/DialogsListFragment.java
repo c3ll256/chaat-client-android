@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageView;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -26,7 +27,7 @@ import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
 import java.util.ArrayList;
 
 public class DialogsListFragment extends Fragment {
-  DialogsList dialogsListView;
+  private DialogsList dialogsListView;
   private DialogsListAdapter dialogsListAdapter;
   private ArrayList<DefaultDialog> dialogs;
   private static final String url = "http://106.52.127.85:7001/api/rooms/";
@@ -110,7 +111,7 @@ public class DialogsListFragment extends Fragment {
             ));
           }
           dialogsListAdapter.notifyDataSetChanged();
-        }, error -> Log.e("That didn't work!", error.toString())
+        }, Throwable::printStackTrace
     );
 
     queue.add(stringRequest);

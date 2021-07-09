@@ -90,11 +90,11 @@ public class SettingFragment extends Fragment {
           "http://106.52.127.85:7001/api/users/" +
               userId,
           sendBody, System.out::println,
-          error -> Log.e("That didn't work!", error.toString()));
+          Throwable::printStackTrace);
       queue.add(updateRequest);
 
       Intent intent = new Intent();
-      intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+      intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
       intent.setClass(requireActivity(), LandingActivity.class);
       startActivity(intent);
     });

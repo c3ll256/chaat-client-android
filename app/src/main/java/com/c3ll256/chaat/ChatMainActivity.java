@@ -51,10 +51,10 @@ public class ChatMainActivity extends AppCompatActivity {
 
     RequestQueue queue = Volley.newRequestQueue(this);
     JsonObjectRequest updateRequest = new JsonObjectRequest(Request.Method.PUT,
-    "http://106.52.127.85:7001/api/users/" +
-        sp.getString("user_id", null),
+        "http://106.52.127.85:7001/api/users/" +
+            sp.getString("user_id", null),
         sendBody, System.out::println,
-    error -> Log.e("That didn't work!", error.toString()));
+        Throwable::printStackTrace);
     queue.add(updateRequest);
 
     bottomNavigationView.setSelectedItemId(R.id.page_chat);
@@ -62,13 +62,15 @@ public class ChatMainActivity extends AppCompatActivity {
     bottomNavigationView.setOnItemSelectedListener(item -> {
       switch (item.getItemId()) {
         case R.id.page_chat:
-          getSupportFragmentManager().beginTransaction()
+          getSupportFragmentManager()
+              .beginTransaction()
               .setReorderingAllowed(true)
               .replace(R.id.fragment_container_view, DialogsListFragment.class, null)
               .commit();
           break;
         case R.id.page_setting:
-          getSupportFragmentManager().beginTransaction()
+          getSupportFragmentManager()
+              .beginTransaction()
               .setReorderingAllowed(true)
               .replace(R.id.fragment_container_view, SettingFragment.class, null)
               .commit();

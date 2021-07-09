@@ -46,7 +46,7 @@ public class LandingActivity extends AppCompatActivity {
 
     if (sp.getBoolean("logged_in", false)) {
       Intent intent = new Intent();
-      intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+      intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
       intent.setClass(this, ChatMainActivity.class);
       startActivity(intent);
     }
@@ -70,7 +70,7 @@ public class LandingActivity extends AppCompatActivity {
                     .putBoolean("logged_in", true)
                     .apply();
                 Intent intent = new Intent();
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.setClass(this, ChatMainActivity.class);
                 startActivity(intent);
               } else {

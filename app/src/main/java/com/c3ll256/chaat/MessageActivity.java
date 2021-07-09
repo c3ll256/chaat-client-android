@@ -105,7 +105,7 @@ public class MessageActivity extends AppCompatActivity {
 
     // 給 MessagesListAdapter 添加滾動到頂部的監聽器
     adapter.setLoadMoreListener((page, totalItemsCount) -> {
-        this.loadMoreMessage(currentOldestMessageId);
+      this.loadMoreMessage(currentOldestMessageId);
     });
 
     // 給 MessageInput 組件添加發送監聽器
@@ -156,7 +156,7 @@ public class MessageActivity extends AppCompatActivity {
             currentOldestMessageId = messages.get(0).getId();
           }
           adapter.addToEnd(messages, true);
-        }, error -> Log.e("That didn't work!", error.toString())
+        }, Throwable::printStackTrace
     );
 
     queue.add(stringRequest);
