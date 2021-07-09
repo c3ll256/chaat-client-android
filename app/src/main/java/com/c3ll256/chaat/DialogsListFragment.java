@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Button;
 import android.widget.ImageView;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -23,10 +21,14 @@ import com.c3ll256.chaat.datamodels.Author;
 import com.c3ll256.chaat.datamodels.DefaultDialog;
 import com.stfalcon.chatkit.dialogs.DialogsList;
 import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
+import io.socket.client.IO;
+import io.socket.client.Socket;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 public class DialogsListFragment extends Fragment {
+  private Socket mSocket;
   private DialogsList dialogsListView;
   private DialogsListAdapter dialogsListAdapter;
   private ArrayList<DefaultDialog> dialogs;
@@ -45,6 +47,52 @@ public class DialogsListFragment extends Fragment {
     // 獲取 UserID
     SharedPreferences sp = this.requireActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
     userId = sp.getString("user_id", null);
+
+    // 初始化 Socket
+    try {
+      mSocket = IO.socket("http://106.52.127.85:7001/");
+    } catch (URISyntaxException e) {
+      e.printStackTrace();
+    }
+
+    // 創建 Socket 監聽
+    mSocket.on("room", args -> {
+      if (isAdded()) {
+        requireActivity().runOnUiThread(() -> {
+          System.out.println(args[0]);
+          JSONObject jsonObject = JSON.parseObject(args[0].toString());
+          ArrayList<Author> users = new ArrayList<>();
+          JSONArray usersData = jsonObject.getJSONArray("users");
+          boolean thereIs = false;
+          for (Object user : usersData) {
+            JSONObject userJSONObject = (JSONObject) user;
+            if (userJSONObject.getString("_id").equals(userId) && !thereIs)
+              thereIs = true;
+            users.add(new Author(
+                userJSONObject.getString("_id"),
+                userJSONObject.getString("username"),
+                userJSONObject.getString("avatar")
+            ));
+          }
+
+          if (thereIs) {
+            System.out.println("add");
+            dialogs.add(0, new DefaultDialog(
+                jsonObject.getString("roomId"),
+                jsonObject.getString("avatar"),
+                jsonObject.getString("roomName"),
+                users,
+                jsonObject.getString("last_message_id"),
+                0
+            ));
+            dialogsListAdapter.notifyDataSetChanged();
+          }
+        });
+      }
+    });
+
+    // Socket 連接
+    mSocket.connect();
 
     // 創建 DialogsListAdapter
     dialogsListAdapter = new DialogsListAdapter<DefaultDialog>((imageView, url, payload) -> {

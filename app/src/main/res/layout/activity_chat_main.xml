@@ -12,7 +12,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fragment_container_view"
+                android:id="@+id/fragment_container_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragment_container_list"
                 android:layout_width="match_parent"
                 android:layout_height="0px"
                 android:layout_weight="1"/>

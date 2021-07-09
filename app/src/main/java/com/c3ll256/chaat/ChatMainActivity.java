@@ -3,13 +3,12 @@ package com.c3ll256.chaat;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.fragment.app.Fragment;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import org.json.JSONException;
@@ -27,10 +26,18 @@ public class ChatMainActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
+    Fragment dialogsListFragment = new DialogsListFragment();
+    Fragment searchFragment = new SearchFragment();
+    Fragment settingFragment = new SettingFragment();
+
     if (savedInstanceState == null) {
       getSupportFragmentManager().beginTransaction()
           .setReorderingAllowed(true)
-          .add(R.id.fragment_container_view, DialogsListFragment.class, null)
+          .add(R.id.fragment_container_list, dialogsListFragment, null)
+          .add(R.id.fragment_container_list, settingFragment, null)
+          .add(R.id.fragment_container_search, searchFragment, null)
+          .hide(settingFragment)
           .commit();
     }
     setContentView(R.layout.activity_chat_main);
@@ -62,17 +69,19 @@ public class ChatMainActivity extends AppCompatActivity {
     bottomNavigationView.setOnItemSelectedListener(item -> {
       switch (item.getItemId()) {
         case R.id.page_chat:
-          getSupportFragmentManager()
-              .beginTransaction()
+          getSupportFragmentManager().beginTransaction()
               .setReorderingAllowed(true)
-              .replace(R.id.fragment_container_view, DialogsListFragment.class, null)
+              .hide(settingFragment)
+              .show(searchFragment)
+              .show(dialogsListFragment)
               .commit();
           break;
         case R.id.page_setting:
-          getSupportFragmentManager()
-              .beginTransaction()
+          getSupportFragmentManager().beginTransaction()
               .setReorderingAllowed(true)
-              .replace(R.id.fragment_container_view, SettingFragment.class, null)
+              .hide(searchFragment)
+              .hide(dialogsListFragment)
+              .show(settingFragment)
               .commit();
           break;
       }
