@@ -42,8 +42,6 @@ public class LandingActivity extends AppCompatActivity {
     button = findViewById(R.id.login_button);
     SharedPreferences sp = getSharedPreferences("login", Context.MODE_PRIVATE);
 
-    setButtonClickable(false);
-
     if (sp.getBoolean("logged_in", false)) {
       Intent intent = new Intent();
       intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -112,6 +110,7 @@ public class LandingActivity extends AppCompatActivity {
       }
     });
 
+    setButtonClickable(false);
   }
 
   private void setButtonClickable(boolean clickable) {

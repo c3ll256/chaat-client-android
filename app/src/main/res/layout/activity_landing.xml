@@ -20,7 +20,10 @@
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:paddingHorizontal="20dp">
             <com.google.android.material.textfield.TextInputLayout
                     app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Chaat.TextInputLayout.Rounded"
                     android:clipToPadding="true"
@@ -29,14 +32,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="@string/hint_enter_id"
-                    android:layout_marginTop="10pt"
-                    android:layout_marginStart="20pt"
                     app:boxStrokeWidth="0dp"
                     app:boxStrokeWidthFocused="0dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:singleLine="true"
                 />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -50,10 +52,9 @@
                     android:insetBottom="0dp"
                     android:insetLeft="0dp"
                     android:insetRight="0dp"
-                    android:layout_marginTop="2pt"
-                    android:layout_marginStart="5pt"
-                    android:layout_marginEnd="20dp"
-                    app:icon="@drawable/outline_arrow_forward_24"/>
+                    app:icon="@drawable/outline_arrow_forward_24"
+                    android:layout_marginStart="4dp"
+                    android:layout_gravity="center"/>
         </LinearLayout>
     </LinearLayout>
 

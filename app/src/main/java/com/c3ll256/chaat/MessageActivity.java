@@ -98,7 +98,7 @@ public class MessageActivity extends AppCompatActivity {
     mSocket.connect();
 
     // 創建 MessagesListAdapter
-    adapter = new MessagesListAdapter<>("1", (imageView, url, payload) -> {
+    adapter = new MessagesListAdapter<>(userId, (imageView, url, payload) -> {
       imageView.setScaleType(ImageView.ScaleType.FIT_XY);
       Glide.with(MessageActivity.this).load(url).fitCenter().into(imageView);
     });
